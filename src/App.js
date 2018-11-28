@@ -5,11 +5,6 @@ import Map from './Map';
 import ListLocations from './ListLocations';
 import './App.css';
 
-const foursquare = require('react-foursquare')({
-  clientID: 'XXP2X4IJSFLVE2SFDPYIZEUHPC1ULIVYBVXO0CVV2J4L1CPL',
-  clientSecret: '1P5MI2AI3KZC1BHGQFUBJUJNOJGZNHB3HJKV4X5IH0UH5AGY'  
-});
-
 
 const defaultLocation = {
   "ll": "-36.8381372, 174.7158244",
@@ -61,7 +56,7 @@ class App extends Component {
         }
         else {
           const match = new RegExp(escapeRegExp(this.state.keyword), 'i');
-          searchResult = this.state.locations.filter((location) => match.test(location.name));
+          searchResult = this.state.locations.filter((location) => match.test(location.venue.name));
           this.setState(
             { searchResult }
           )
@@ -84,8 +79,9 @@ class App extends Component {
     }).then((res) => {
        console.log(res);
       /* this.setState({selectedLocation: res.data.response.venue}) */
-    })
-    ;
+    }).catch((err) => {
+      console.log(err)
+    });
   }
   
   render() {

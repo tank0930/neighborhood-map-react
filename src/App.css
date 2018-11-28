@@ -3,15 +3,12 @@
     background-color: black;
     color: dimgray;
     position: absolute;
-    width: 250px;
+    width: 270px;
     height: 100%;
-    
     -moz-box-sizing: border-box;
          box-sizing: border-box;
-
     left: 0;
     top: 0;   
-    
     z-index: 1001;
 }
 
@@ -28,10 +25,10 @@
 .location-list {
     list-style: none;
     padding-left: 0;
-    
+    font-weight: 600;
 }
 
-.location{
+.location-item{
     border-bottom-style: solid;
     border-bottom-width: 1px;
     height: 30px;
@@ -40,6 +37,7 @@
 
 .location:hover {
     color: white;
+    cursor: pointer;
 }
 
 .location:active { 
