@@ -91,13 +91,21 @@ class App extends Component {
     }).then((res) => {
        console.log(res);
        this.setState({selectedLocation: res.data.response.venue}, () => {
-         
+  
        })
     }).catch((err) => {
       console.log(err)
     });
   }
   
+   markerClicked = (marker) => {
+    this.setState({
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+  } 
+
+
   render() {
      return (
       <div className="App">
@@ -112,15 +120,17 @@ class App extends Component {
           keyword={ this.state.keyword } 
           searchResult={ this.state.searchResult } 
           showList={ this.state.showList }
-          selectedLocation={ this.state.selectedLocation }
           onKeywordChange={ this.updateKeyword } 
           onLocationSelected={ this.focusLocation }
           onToggleClick={ this.switchList }
         />
         <Map 
           center={ {lat:-36.8381372, lng:174.7158244} } 
-          searchResult={ this.state.searchResult } 
+          searchResult={ this.state.searchResult }
+          activeMarker={ this.state.activeMarker }
+          showingInfoWindow={ this.state.showingInfoWindow }
           selectedLocation={ this.state.selectedLocation }
+          markerClicked={ this.markerClicked }  
         />
       
       </div>

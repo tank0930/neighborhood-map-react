@@ -22,7 +22,10 @@ class ListLocations extends Component {
 					<ol className="location-list">
 						{ Array.isArray(this.props.searchResult) ? (this.props.searchResult.map((result) => (
 							<li  key={result.venue.id} className="location-item">
-								<div className="location" onClick={ this.props.onLocationSelected(result)}>
+								<div 
+									className={ (result.venue.id  ===  this.props.selectedLocation.id) ? "location selected" : "location" } 
+									onClick={ () => {this.props.onLocationSelected(result)}}
+								>
 									{ result.venue.name }
 								</div>						
 							</li>

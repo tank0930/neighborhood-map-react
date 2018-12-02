@@ -1,14 +1,34 @@
+/********************* Head Bar **********************/
+header {
+    background-color: #000;
+    height: 40px;
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1001;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 18pt;
+    color: #fff;
+    margin: 0;
+}
+
+/******************** Location List *****************/
 .list-locations {
     font-size: 14pt;
     background-color: black;
     color: dimgray;
     position: absolute;
     width: 270px;
-    height: 100%;
+    height: auto;
     -moz-box-sizing: border-box;
          box-sizing: border-box;
     left: 0;
-    top: 0;   
+    top: 40px;
+    bottom: 0;   
     z-index: 1001;
 }
 
@@ -40,8 +60,29 @@
     cursor: pointer;
 }
 
-.location:active { 
+.location.selected { 
     color: #fff; 
+}
+
+
+/**************** InfoWindow ******************/ 
+.map-location-info {
+    height: 140px;
+    width: 200px;
+    box-flex:  wrap;
+    
+}
+
+.map-location-name {
+    width: 100%;
+}
+
+.map-location-address {
+    width: 50%;
+}
+
+.map-location-photo {
+    width: 50%;
 }
 
 
