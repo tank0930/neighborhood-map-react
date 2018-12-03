@@ -4,6 +4,8 @@ import axios from 'axios';
 import Map from './Map';
 import ListLocations from './ListLocations';
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 
 const defaultLocation = {
@@ -78,6 +80,19 @@ class App extends Component {
         this.setState( {searchResult: this.state.locations} );
       }
     });
+  } 
+
+  markerClicked = (props, marker) => {
+    
+    for ( let location of this.state.locations) {
+      if (location.venue.name === props.name) {
+        this.focusLocation(location);  
+      }
+    }
+    this.setState({
+      activeMarker: marker,
+      showingInfoWindow: true
+    })
   }
 
   focusLocation = (location) => {
@@ -102,10 +117,12 @@ class App extends Component {
      return (
       <div className="App">
 				<header>
-          <div className="hamToggle">
-            
+          <div className="hamToggle" onClick={ this.switchList } >
+            <FontAwesomeIcon icon= { faBars } />
           </div>
-          <h1> Auckland TOP 10 </h1>
+          <div className="title">
+            <h1> Auckland TOP 10 </h1>
+          </div>
         </header>
         
         <ListLocations 
@@ -119,9 +136,12 @@ class App extends Component {
         />
         <Map 
           center={ {lat:-36.8381372, lng:174.7158244} } 
+          activeMarker={ this.state.activeMarker }
+          showingInfoWindow={ this.state.showingInfoWindow }
           searchResult={ this.state.searchResult } 
           selectedLocation={ this.state.selectedLocation }
-        />
+          markerClicked={ this.markerClicked }
+        />   
       
       </div>
     );

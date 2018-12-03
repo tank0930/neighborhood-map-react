@@ -6,18 +6,23 @@ class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showingInfoWindow: false,
-      activeMarker: {},
       selectedPlace: {} 
     }
     this.onMarkerClick = this.onMarkerClick.bind(this);
   }
 
+  /* componentWillReceiveProps(nextProps) {
+    if ( nextProps.selectedLocation !== this.props.selectedLocation) {
+       
+    }
+  } */
+
   onMarkerClick = (props, marker, e) => {
+    console.log(props);
     this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
+      selectedPlace: props
+    }, () => {
+      this.props.markerClicked(props, marker); 
     });
   }
  
@@ -30,16 +35,18 @@ class MapContainer extends React.Component {
     return (
       <Map
         item
-        xs = { 12 }
+         xs = { 12 }
         style = { style }
         google = { this.props.google }
         zoom = { 12 }
         initialCenter = { this.props.center }
         className="map"
         selectedLocation={ this.props.selectedLocation }
+        activeMarker={ this.state.activeMarker }
+        showingInfoWindow={ this.state.showingInfoWindow }
       >
         { this.props.searchResult.map((result) => (
-          this.props.selectedLocation.venue ? (
+          (this.props.selectedLocation.id === result.venue.id)  ? (
             <Marker
               key={ result.venue.id }
               onClick = { this.onMarkerClick }
@@ -61,19 +68,19 @@ class MapContainer extends React.Component {
         ))}
 
         <InfoWindow
-          marker = { this.state.activeMarker }
-          visible = { this.state.showingInfoWindow }
+          marker = { this.props.activeMarker }
+          visible = { this.props.showingInfoWindow }
         >
-        { this.props.selectedLocation.venue ? (
+        { this.props.selectedLocation ? (
           <div className="map-location-info">
             <div className="map-location-name">
-              { this.props.selectedLocation.venue.name }
+              { this.props.selectedLocation.name }
             </div>
             <div className="map-location-address">
-              { this.props.selectedLocation.venue.address }
+              Address:{ this.props.selectedLocation.address }
             </div>
             <div className="map-location-photo">
-              { this.props.selectedLocation.venue.name }
+              { this.props.selectedLocation.name }
             </div> 
           </div>
         ) : (

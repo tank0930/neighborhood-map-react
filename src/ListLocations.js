@@ -7,7 +7,7 @@ class ListLocations extends Component {
 	render(){
 
 		return(
-			<div className="list-locations">
+			<div className={ this.props.showList ? 'list-locations' : 'list-locations hidden'}>
 				<div className="filter-locations">
 					<input 
 						type="text" 

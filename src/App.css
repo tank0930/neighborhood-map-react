@@ -1,19 +1,46 @@
+.app {
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
 /********************* Head Bar **********************/
 header {
     background-color: #000;
     height: 40px;
     width: 100%;
     margin: 0;
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 1001;
+
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;  
 }
 
-header h1 {
-    text-align: center;
+
+.title {
+    align-self: center;
+    margin: 0 auto;
+}
+
+.title h1 {
     font-size: 18pt;
+    width: 230px; 
     color: #fff;
     margin: 0;
+    z-index: 1000;
+}
+
+.hamToggle {
+    align-self: center;
+    color: #fff;
+    font-size: 18pt;
+    margin-left: 10px;
+    width: min-content;
+    z-index: 1003;
 }
 
 /******************** Location List *****************/
@@ -21,22 +48,25 @@ header h1 {
     font-size: 14pt;
     background-color: black;
     color: dimgray;
-    position: absolute;
+    position: fixed;
     width: 270px;
     height: auto;
-    -moz-box-sizing: border-box;
-         box-sizing: border-box;
+    
     left: 0;
     top: 40px;
     bottom: 0;   
     z-index: 1001;
 }
 
+.list-locations.hidden {
+    display: none;
+}
+
 
 .filter-keyword {
     font-size: 13pt;
     height: 40px;
-    width: 210px;
+    width: 230px;
     padding: 0 20px;
     border: none;
     color: gray;
