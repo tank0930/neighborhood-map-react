@@ -11,14 +11,13 @@ class MapContainer extends React.Component {
     this.onMarkerClick = this.onMarkerClick.bind(this);
   }
 
-  /* componentWillReceiveProps(nextProps) {
-    if ( nextProps.selectedLocation !== this.props.selectedLocation) {
-       
+  componentDidUpdate() {
+    if ( this.props.markers !== this.refs) {
+      this.props.setMarkers(this.refs);
     }
-  } */
+  }
 
   onMarkerClick = (props, marker, e) => {
-    console.log(props);
     this.setState({
       selectedPlace: props
     }, () => {
@@ -49,6 +48,7 @@ class MapContainer extends React.Component {
           (this.props.selectedLocation.id === result.venue.id)  ? (
             <Marker
               key={ result.venue.id }
+              ref={ result.venue.name }
               onClick = { this.onMarkerClick }
               title = { result.venue.name }
               position = {{ lat: result.venue.location.lat, lng: result.venue.location.lng}}
@@ -58,9 +58,10 @@ class MapContainer extends React.Component {
           ) : (
             <Marker
               key={ result.venue.id }
+              ref={ result.venue.name }
               onClick = { this.onMarkerClick }
               title = { result.venue.name }
-              position = {{ lat: result.venue.location.lat, lng: result.venue.location.lng}}
+              position = {{ lat: result.venue.location.lat, lng: result.venue.location.lng }}
               name = { result.venue.name }
             />
           )

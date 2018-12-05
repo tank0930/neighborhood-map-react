@@ -104,6 +104,8 @@ header {
 }
 
 .map-location-name {
+    font-size: 14pt;
+    font-weight: 500 ; 
     width: 100%;
 }
 

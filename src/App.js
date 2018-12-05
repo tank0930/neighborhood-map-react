@@ -20,6 +20,7 @@ class App extends Component {
     keyword: "",
     searchResult: [],
     selectedLocation: {},
+    markers: {},
     activeMarker: {},
     showingInfoWindow: false,
     showList: true
@@ -36,14 +37,11 @@ class App extends Component {
         section: "sights",
         limit: 10
       }}).then((res) => {
-      console.log(res);
-
       this.setState({ locations: res.data.response.groups[0].items }, () => {
         if (this.state.keyword === "") {
           this.setState({ searchResult: this.state.locations });  
         }
       });
-      console.log(this.state.locations);
     }).catch((err) => {
       this.setState({ locations: [] });
       console.log(err);
@@ -82,8 +80,13 @@ class App extends Component {
     });
   } 
 
+  setMarkers = (markerList) => {
+    if ( this.state.markers !== markerList) {
+     this.setState({ markers: markerList} );
+    }
+  }
+
   markerClicked = (props, marker) => {
-    
     for ( let location of this.state.locations) {
       if (location.venue.name === props.name) {
         this.focusLocation(location);  
@@ -104,13 +107,14 @@ class App extends Component {
         limit: 1
       }
     }).then((res) => {
-       console.log(res);
-       this.setState({selectedLocation: res.data.response.venue}, () => {
-         
-       })
+      console.log(res);
+      this.setState({selectedLocation: res.data.response.venue}, () => {
+        this.setState({ activeMarker: this.state.markers[this.state.selectedLocation.name] })
+      })
     }).catch((err) => {
       console.log(err)
     });
+    
   }
   
   render() {
@@ -136,6 +140,8 @@ class App extends Component {
         />
         <Map 
           center={ {lat:-36.8381372, lng:174.7158244} } 
+          marker={ this.state.markers }
+          setMarkers={ this.setMarkers }
           activeMarker={ this.state.activeMarker }
           showingInfoWindow={ this.state.showingInfoWindow }
           searchResult={ this.state.searchResult } 
