@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-/*import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
- import { faFilter } from '@fortawesome/free-solid-svg-icons' */
+ 
 
 class ListLocations extends Component {
 	
@@ -15,8 +14,8 @@ class ListLocations extends Component {
 						value={this.props.keyword} 
 						placeholder="Search the locations" 
 						onChange={(event) => (this.props.onKeywordChange(event.target.value))} 
+						aria-label="Location Search"
 					/>
-					{/* <FontAwesomeIcon icon= { faFilter } /> */}
 				</div>
 				<div className="location-results">
 					<ol className="location-list">

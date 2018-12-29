@@ -89,13 +89,30 @@ class App extends Component {
   markerClicked = (props, marker) => {
     for ( let location of this.state.locations) {
       if (location.venue.name === props.name) {
-        this.focusLocation(location);  
+        axios.get(`https://api.foursquare.com/v2/venues/${ location.venue.id }`, {
+          params: {
+            client_id: 'XXP2X4IJSFLVE2SFDPYIZEUHPC1ULIVYBVXO0CVV2J4L1CPL',
+            client_secret: '1P5MI2AI3KZC1BHGQFUBJUJNOJGZNHB3HJKV4X5IH0UH5AGY',
+            v: 20181128,
+            limit: 1
+          }
+        }).then((res) => {
+          this.setState({selectedLocation: res.data.response.venue}, () => {
+            /* this.setState({ activeMarker: this.state.markers[this.state.selectedLocation.name].marker }, () => {
+              console.log(marker);
+              console.log(this.state.activeMarker);  */
+              
+              this.setState({
+                activeMarker: marker,
+                showingInfoWindow: true
+              })
+            /* }) */
+          })
+        }).catch((err) => {
+          console.log(err)
+        });  
       }
     }
-    this.setState({
-      activeMarker: marker,
-      showingInfoWindow: true
-    })
   }
 
   focusLocation = (location) => {
@@ -108,9 +125,18 @@ class App extends Component {
       }
     }).then((res) => {
       console.log(res);
-      this.setState({selectedLocation: res.data.response.venue}, () => {
-        this.setState({ activeMarker: this.state.markers[this.state.selectedLocation.name] })
-      })
+      this.setState({selectedLocation: res.data.response.venue}/* , () => {
+        console.log(this.state.markers[this.state.selectedLocation.name].marker);
+        this.setState({ 
+          activeMarker: this.state.markers[this.state.selectedLocation.name].marker,
+          showingInfoWindow: true 
+        }, () => {
+          console.log(this.state.markers[this.state.selectedLocation.name]);
+          console.log(this.state.activeMarker);
+
+        })
+        
+      } */)
     }).catch((err) => {
       console.log(err)
     });
@@ -121,7 +147,7 @@ class App extends Component {
      return (
       <div className="App">
 				<header>
-          <div className="hamToggle" onClick={ this.switchList } >
+          <div className="hamToggle" onClick={ this.switchList } aria-label="List Toggle">
             <FontAwesomeIcon icon= { faBars } />
           </div>
           <div className="title">

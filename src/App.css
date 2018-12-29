@@ -8,7 +8,7 @@
 /********************* Head Bar **********************/
 header {
     background-color: #000;
-    height: 40px;
+    height: 40px; 
     width: 100%;
     margin: 0;
     position: fixed;
@@ -100,7 +100,6 @@ header {
     height: 140px;
     width: 200px;
     box-flex:  wrap;
-    
 }
 
 .map-location-name {
@@ -110,12 +109,16 @@ header {
 }
 
 .map-location-address {
-    width: 50%;
+    padding-top: 5px;
 }
 
-.map-location-photo {
-    width: 50%;
+.map-location-address p {
+    margin-bottom: 3px;
+    margin-top: 0;
 }
 
+.map-location-address .label {
+    font-weight: 500;
+}
 
 

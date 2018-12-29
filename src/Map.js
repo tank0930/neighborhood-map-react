@@ -23,6 +23,8 @@ class MapContainer extends React.Component {
     }, () => {
       this.props.markerClicked(props, marker); 
     });
+
+    console.log(this.props.selectedLocation);
   }
  
   render() {
@@ -41,8 +43,8 @@ class MapContainer extends React.Component {
         initialCenter = { this.props.center }
         className="map"
         selectedLocation={ this.props.selectedLocation }
-        activeMarker={ this.state.activeMarker }
-        showingInfoWindow={ this.state.showingInfoWindow }
+        activeMarker={ this.props.activeMarker }
+        showingInfoWindow={ this.props.showingInfoWindow }
       >
         { this.props.searchResult.map((result) => (
           (this.props.selectedLocation.id === result.venue.id)  ? (
@@ -78,11 +80,15 @@ class MapContainer extends React.Component {
               { this.props.selectedLocation.name }
             </div>
             <div className="map-location-address">
-              Address:{ this.props.selectedLocation.address }
+              <p className="label">Address:</p>
+              { (this.props.selectedLocation.location) ? (
+                (this.props.selectedLocation.location.formattedAddress) ? (
+                  this.props.selectedLocation.location.formattedAddress.map((addressLine) => (
+                     <p> {addressLine} </p> 
+                  ))
+                ) : ("Woops, the address of this place is temporary not available!")
+              ) : ( "Woops, the address of this place is temporary not available!") }
             </div>
-            <div className="map-location-photo">
-              { this.props.selectedLocation.name }
-            </div> 
           </div>
         ) : (
           <div> Sorry, the information is temporary not available.</div>
