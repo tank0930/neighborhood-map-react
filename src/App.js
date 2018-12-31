@@ -109,7 +109,7 @@ class App extends Component {
             /* }) */
           })
         }).catch((err) => {
-          console.log(err)
+          alert(err);
         });  
       }
     }
@@ -138,7 +138,7 @@ class App extends Component {
         
       } */)
     }).catch((err) => {
-      console.log(err)
+        alert(err);
     });
     
   }
@@ -147,7 +147,7 @@ class App extends Component {
      return (
       <div className="App">
 				<header>
-          <div className="hamToggle" onClick={ this.switchList } aria-label="List Toggle">
+          <div className="hamToggle" onClick={ this.switchList } aria-label="List Toggle" tabIndex="1">
             <FontAwesomeIcon icon= { faBars } />
           </div>
           <div className="title">

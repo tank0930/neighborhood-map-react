@@ -15,6 +15,7 @@ class ListLocations extends Component {
 						placeholder="Search the locations" 
 						onChange={(event) => (this.props.onKeywordChange(event.target.value))} 
 						aria-label="Location Search"
+						tabIndex="2"
 					/>
 				</div>
 				<div className="location-results">
@@ -24,6 +25,7 @@ class ListLocations extends Component {
 								<div 
 									className={ (result.venue.id  ===  this.props.selectedLocation.id) ? "location selected" : "location" } 
 									onClick={ () => {this.props.onLocationSelected(result)}}
+									tabIndex="3"
 								>
 									{ result.venue.name }
 								</div>						

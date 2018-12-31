@@ -44,7 +44,6 @@ class MapContainer extends React.Component {
         className="map"
         selectedLocation={ this.props.selectedLocation }
         activeMarker={ this.props.activeMarker }
-        showingInfoWindow={ this.props.showingInfoWindow }
       >
         { this.props.searchResult.map((result) => (
           (this.props.selectedLocation.id === result.venue.id)  ? (
@@ -56,6 +55,8 @@ class MapContainer extends React.Component {
               position = {{ lat: result.venue.location.lat, lng: result.venue.location.lng}}
               name = { result.venue.name }
               animation={this.props.google.maps.Animation.BOUNCE}
+              tabIndex="4"
+              role="listitem"
             />
           ) : (
             <Marker
@@ -65,6 +66,8 @@ class MapContainer extends React.Component {
               title = { result.venue.name }
               position = {{ lat: result.venue.location.lat, lng: result.venue.location.lng }}
               name = { result.venue.name }
+              tabIndex="4"
+              role="listitem"
             />
           )
 
@@ -73,6 +76,7 @@ class MapContainer extends React.Component {
         <InfoWindow
           marker = { this.props.activeMarker }
           visible = { this.props.showingInfoWindow }
+          tabIndex="5"
         >
         { this.props.selectedLocation ? (
           <div className="map-location-info">
@@ -99,7 +103,29 @@ class MapContainer extends React.Component {
     );
   }
 }
+
+class LoadingContainer extends React.Component {
+  state = {
+      loadingContent: 'Map is Loading...'
+  }
+  componentDidMount(){
+      this.timer = setTimeout(() => {
+          this.setState({content: 'Time out, please check your Internet connection or try again later.'}); 
+      }, 3000);
+  }
+  componentWillUnmount(){
+      clearTimeout(this.timer);
+  }
+  
+  render(){
+      return (
+          this.state.loadingContent
+      )
+  }
+}
+
  
  export default GoogleApiWrapper({
-  apiKey: "AIzaSyB7yXRfEkWq5TX3vebF7D9RMw3NbrzExBY"
+  apiKey: "AIzaSyB7yXRfEkWq5TX3vebF7D9RMw3NbrzExBY",
+  LoadingContainer: LoadingContainer
  })(MapContainer)
